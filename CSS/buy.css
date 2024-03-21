@@ -1,0 +1,62 @@
+
+.main{
+  background-color: rgb(219, 219, 219);
+
+}
+
+.selected-furniture {
+  display: flex;
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 3%;
+
+}
+.selected-furniture-img {
+  width:25%;
+  margin-right: 2rem;
+}
+.selected-image {
+  width: 100%;
+  border-radius: .3rem;
+
+ 
+}
+
+.user-details{
+    padding: 5%;
+    font-size: 1.3rem;
+  
+}
+
+.order {
+  width: 50%;
+  margin: 0 auto;
+  
+}
+.input-responsive {
+  width: 96%;
+  padding: 1%;
+  margin-bottom: 3%;
+  border: none;
+  border-radius: .5rem;
+  font-size: 1.2rem;
+
+}
+.order-label {
+  margin-bottom: 1%;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.btn {
+  padding: 1%;
+  border: none;
+  font-size: 1.2rem;
+  border-radius: .5rem;
+}
+.btn-primary {
+  background-color: #f64c08;
+  color: white;
+  cursor: pointer;
+  margin-top: .8rem;
+  margin-bottom: .8rem;
+}

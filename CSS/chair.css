@@ -1,0 +1,86 @@
+.chair-type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  margin-left: 3rem;
+  margin-top: 3rem;
+  row-gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+.chair-name {
+  font-weight: bold;
+}
+
+.chair-picture img {
+  margin-top: .5rem;
+  width: 18rem;
+  margin-left: 1rem;
+  border-radius: .5rem;
+  height: 16rem;
+}
+.chair-info {
+  box-shadow: .1rem .1rem .4rem gray;
+  width: 20rem;
+  border-radius: .5rem;
+  padding: 1rem 0;
+}
+.chair-info:hover {
+  background-color: #dad7cd;
+}
+.chair-price {
+  font-size: 1.4rem;
+  color: rgb(104, 102, 102);
+}
+.buy {
+  border: none;
+  padding: .3rem .8rem;
+  border-radius: .3rem;
+  margin-left: 1.3rem;
+  background-color: rgb(42, 187, 232);
+  cursor: pointer;
+  color: white;
+}
+.buy:hover {
+  background-color: rgb(20, 131, 164);
+}
+.add-to-cart {
+  border: none;
+  padding: .3rem .8rem;
+  border-radius: .3rem;
+  margin-left: 1.3rem;
+  background-color: rgb(245, 114, 36);
+  cursor: pointer;
+  color: white;
+
+ 
+}
+.add-to-cart:hover {
+  background-color: rgb(207, 98, 34);
+}
+.chair-description p {
+  margin-left: 1.3rem;
+  margin-top: .3rem;
+  margin-bottom: .3rem;
+}
+.chair-description button {
+  margin-bottom: .8rem;
+}
+.seemore {
+  margin-bottom: 1rem;
+}
+.seemore a {
+  margin-left: 51%;
+  color: #fb5607;
+}
+.seemore a:hover {
+  text-decoration: underline;
+}
+/* @media (max-width:998px){
+  .category-container{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+@media (max-width:778px){
+  .category-container{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+} */

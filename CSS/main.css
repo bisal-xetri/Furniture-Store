@@ -1,0 +1,332 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: black;
+    list-style: none;
+    text-decoration: none;
+    font-family: Roboto, Arial;
+  }
+  
+  body {
+    padding-top: 40px;
+    background-color: rgb(219, 219, 219);
+  }
+  
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(235, 91, 7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+  
+  a {
+    color: white;
+  }
+  
+  .title {
+    margin-left: 10px;
+  }
+  
+  .search {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-box {
+    height: 32px;
+    flex: 2;
+    border: 1px solid lightgray;
+    width: 200px;
+    z-index: 2;
+    border-radius: 2px;
+    padding-left: 5px;
+  }
+  
+  .search-icon {
+    height: 15px;
+    margin-top: 5px;
+  }
+  
+  .search-button {
+    background-color: rgb(42, 187, 232);
+    border: none;
+    height: 32px;
+    width: 32px;
+    margin-left: -5px;
+    border-radius: 3px;
+    z-index: 0;
+    cursor: pointer;
+  }
+  
+  input::placeholder {
+    color: rgb(181, 180, 180);
+    padding-left: 10px;
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar li {
+    margin-left: 50px;
+  }
+  
+  .navbar li a:hover {
+    background-color: rgb(200, 73, 0);
+    color: black;
+    padding: 10px;
+  }
+  
+  .trolley,
+  .explore {
+    display: flex;
+    align-items: center;
+  }
+  
+  .trolley,
+  .trolley-button {
+    background-color: rgb(42, 187, 232);
+  }
+  
+  .trolley-button {
+    border: none;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .trolley-icon,
+  .add-to-cart-count {
+    height: 20px;
+    width: 20px;
+    padding: 10px;
+    position: absolute;
+    top: 3px;
+    left: 17px;
+    z-index: 3;
+    background-color: #fb5607;
+    border-radius: 50%;
+    color: antiquewhite;
+  }
+  
+  .explore {
+    color: white;
+    margin-left: 48%;
+    background-color: rgb(235, 91, 7);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(146, 127, 127, 0.5);
+  }
+  
+  .explore:hover {
+    background-color: rgb(198, 76, 6);
+  }
+  
+  .recommended-title {
+    margin-left: 20px;
+    margin-top: 20px;
+  }
+  
+  .category-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 15px;
+    row-gap: 15px;
+    margin: 30px 15px;
+  }
+  
+  .category-img {
+    position: relative;
+    height: 350px;
+  }
+  
+  .category-name {
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    color: aliceblue;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .category-img img {
+    height: 100%;
+    width: 100%;
+    filter: brightness(50%);
+    border-radius: 20px;
+  }
+  
+  .category-img img:hover {
+    box-shadow: 1px 1px 4px gray;
+  }
+  
+  .social ul,
+  .cart-detail,
+  .cart-button {
+    display: flex;
+    width: 70%;
+    justify-content: space-between;
+    margin-left: 100px;
+  }
+  
+  .social ul li,
+  .cart-item,
+  .cart-button button {
+    padding-left: 5px;
+  }
+  
+  .social ul {
+    margin-top: 10px;
+    margin-left: 50%;
+  }
+  
+  .social img {
+    height: 20px;
+  }
+  
+  .footer p {
+    margin-left: 43%;
+    font-size: 15px;
+  }
+  
+  .footer a {
+    color: red;
+    padding: 3px;
+    border-radius: 3px;
+  }
+  
+  .main-detail,
+  .chair-type {
+    display: grid;
+    margin-left: 30px;
+    margin-top: 30px;
+  }
+  
+  .main-detail {
+    grid-template-columns: 400px 1fr;
+    column-gap: 20px;
+    border-bottom: 1px solid rgb(119, 118, 118);
+    padding-bottom: 8px;
+  }
+  
+  .chair-type {
+    grid-template-columns: repeat(5, 1fr);
+    row-gap: 15px;
+    margin-bottom: 30px;
+  }
+  
+  .chair-name {
+    font-weight: bold;
+  }
+  
+  .chair-picture img {
+    margin-top: 5px;
+    width: 180px;
+    margin-left: 10px;
+    border-radius: 5px;
+    height: 160px;
+  }
+  
+  .chair-info {
+    box-shadow: 1px 1px 4px gray;
+    width: 200px;
+    border-radius: 5px;
+    padding: 5px 0;
+  }
+  
+  .chair-info:hover {
+    background-color: #dad7cd;
+  }
+  
+  .chair-price {
+    font-size: 14px;
+    color: rgb(104, 102, 102);
+  }
+  
+  .buy,
+  .add-to-cart,
+  .chair-description p {
+    margin-left: 13px;
+  }
+  
+  .buy,
+  .buy:hover {
+    border: none;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background-color: rgb(42, 187, 232);
+    cursor: pointer;
+    color: white;
+  }
+  
+  .add-to-cart,
+  .add-to-cart:hover {
+    border: none;
+    padding: 5px 8px;
+    border-radius: 3px;
+    background-color: rgb(245, 114, 36);
+    cursor: pointer;
+    color: white;
+  }
+  
+  .seemore {
+    margin-bottom: 10px;
+  }
+  
+  .seemore a {
+    margin-left: 51%;
+    color: #fb5607;
+  }
+  
+  .seemore a:hover {
+    text-decoration: underline;
+  }
+  
+  .cart-title th {
+    border-top: 1px solid rgb(196, 194, 194);
+    padding: 10px;
+    background-color: rgb(233, 230, 230);
+    overflow: hidden;
+  }
+  
+  img {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+    object-fit: contain;
+  }
+  
+  .order-detail-title {
+    border-bottom: 1px solid rgb(196, 194, 194);
+  }
+  
+  h3 {
+    border-top: 1px solid rgb(196, 194, 194);
+  }
+  
+  tr td {
+    padding-right: 10px;
+    vertical-align: middle;
+  }
+  
+  .cart-button button {
+    padding: 7px;
+    border: none;
+    background-color: orangered;
+    color: white;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .cart-button button:hover {
+    background-color: red;
+  }
+  
+  

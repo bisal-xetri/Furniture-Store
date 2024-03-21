@@ -1,0 +1,78 @@
+
+.main-detail {
+  display: grid;
+  grid-template-columns: 400px 1fr;
+  column-gap: 20px;
+  margin-top: 10px;
+  border-bottom: 1px solid rgb(119, 118, 118);
+  padding-bottom: 8px;
+}
+.detail-image img {
+  width: 100%;
+  height: 400px;
+}
+.star {
+  display: flex;
+  align-items: center;
+}
+.star img {
+  width: 100px;
+  margin-left: -6px;
+}
+.star span {
+  font-size: 12px;
+}
+
+.detail-description {
+  text-align: justify;
+  margin-bottom: 1%;
+  padding-right: 250px;
+}
+.detail-price {
+  font-size: medium;
+  color: rgb(111, 107, 107);
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid gray;
+  width: 600px;
+}
+.detail-quantity input {
+  border: 0.5px solid lightgrey;
+  width: 145px;
+  padding: 5px;
+  border-radius: 5px;
+
+}
+.recommended-title, .detail-quantity{
+  font-size: 15px;
+}
+
+.detail-buy {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+.buy-option {
+  background-color: orangered;
+  color: white;
+  border: none;
+  padding: 5px 70px;
+  font-size: 20px;
+}
+.addtocart-option {
+  background-color: rgb(17, 173, 235);
+  color: white;
+  border: none;
+  padding: 5px 100px;
+  font-size: 20px;
+}
+.buy-option:hover {
+  background-color: rgb(173, 49, 4);
+  cursor: pointer;
+}
+.addtocart-option:hover {
+  background-color: rgb(6, 114, 156);
+  cursor: pointer;
+}
