@@ -67,7 +67,7 @@ if (isset($_SESSION['order'])) {
 <div class=explore-div>
   <h3><a class="explore" href="">Explore Now</a></h3>
 </div>
-<div class="category-container">
+<div class="category-container" data-aos="fade-up">
   <?php
   $sql = "SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes'  LIMIT 3";
   $res = mysqli_query($con, $sql);
@@ -103,7 +103,7 @@ if (isset($_SESSION['order'])) {
 <div class=explore-div>
   <h3><a class="explore" href="">Latest Products</a></h3>
 </div>
-<div class="chair-type">
+<div class="chair-type" >
   <?php
   $sql2 = "SELECT * 
   FROM tbl_furniture 
@@ -119,7 +119,7 @@ if (isset($_SESSION['order'])) {
       $price = $row['price'];
       $image_name = $row['image_name'];
   ?>
-      <div class="chair-info">
+      <div class="chair-info"data-aos="fade-up">
         <div class="chair-picture">
           <?php
           //check img available

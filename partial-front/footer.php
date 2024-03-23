@@ -23,6 +23,10 @@
 
 <script src="javascript/cart.js"></script>
 <script type="module" src="javascript/addtocart.js"></script> -->
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="javascript/cript.js"></script>
 

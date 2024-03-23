@@ -16,6 +16,7 @@
 
     <link rel="stylesheet" href="CSS/furniture-details.css">
     <link rel="stylesheet" href="CSS/checkout.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
 </head>
 <?php

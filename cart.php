@@ -99,7 +99,7 @@ if (isset($_SESSION['username'])) {
           <?php
               }
             } else {
-              echo "<h2 class='text-center'>Your Cart is Empty</h2>";
+              echo "<h2 class='cart-msg'>Your Cart is Empty</h2>";
             }
           }
 
