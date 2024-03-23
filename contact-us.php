@@ -2,7 +2,7 @@
 <?php include ('partial-front/menu.php')?>
 <link rel="stylesheet" href="CSS/contact-us.css">
 <h1 class="contact-title">Contact US</h1>
-    <div class="contact-info">
+    <div class="contact-info" data-aos="fade-up" data-aos-delay="100">
         <div class="contact-address">
             <h1>Our Office</h1><hr>
             <p>Ganeshman Singh Path, Kathmandu</p>
