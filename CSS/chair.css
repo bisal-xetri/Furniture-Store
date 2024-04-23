@@ -74,13 +74,15 @@
 .seemore a:hover {
   text-decoration: underline;
 }
-/* @media (max-width:998px){
-  .category-container{
-    grid-template-columns: 1fr 1fr 1fr;
+@media (max-width:998px){
+  .chair-type{
+    display: grid;
+    grid-template-columns: 1fr 1fr  1fr 1fr;
   }
 }
 @media (max-width:778px){
-  .category-container{
-    grid-template-columns: 1fr 1fr 1fr;
+  .chair-type{
+    display: grid;
+    grid-template-columns: 1fr 1fr  ;
   }
-} */
+}

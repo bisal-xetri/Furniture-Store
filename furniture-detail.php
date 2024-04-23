@@ -134,7 +134,19 @@ if (isset($_SESSION['username'])) {
   <?php
 
   if (isset($image_id)) {
-    $sql2 = "SELECT * FROM tbl_furniture WHERE active='YES' AND featured='YES' AND id NOT IN (SELECT id FROM tbl_furniture WHERE id=$image_id) ORDER BY RAND() LIMIT 5";
+    $sql2 = "(SELECT * FROM tbl_furniture 
+    WHERE active='YES' AND featured='YES' 
+    AND category_id = (SELECT category_id FROM tbl_furniture WHERE id=$image_id)
+
+    AND id != $image_id
+    LIMIT 3)
+    UNION
+    (SELECT * FROM tbl_furniture 
+    WHERE active='YES' AND featured='YES' 
+    AND id NOT IN (SELECT id FROM tbl_furniture WHERE id=$image_id OR category_id = (SELECT category_id FROM tbl_furniture WHERE id=$image_id))
+    ORDER BY RAND() 
+    LIMIT 2);
+    ";
     $res2 = mysqli_query($con, $sql2);
 
     // Check if $res2 is a valid result set

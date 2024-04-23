@@ -56,7 +56,7 @@ if (isset($_SESSION['username'])) {
             $price = $row['price'];
             $image_name = $row['image_name'];
     ?>
-            <div class="chair-info">
+            <div class="chair-info" data-aos="zoom-in" data-aos-delay="100">
                 <div class="chair-picture">
                     <?php
                     //check img available

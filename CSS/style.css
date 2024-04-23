@@ -80,6 +80,7 @@ line-height: 1.5;
   left: 0;
   right: 0;
   z-index: 10;
+  width: 100%;
  
 }
 a {
@@ -223,9 +224,36 @@ input::placeholder {
   html{
     font-size: 55%;
   }
+.header{
+  display: grid;
+  grid-template-columns: 14rem 3em 40rem 3rem;
+  gap: 5px;
+  font-size: 1rem;
 }
-@media (max-width:998px){
+.title h1 a{
+  font-size: 1.5rem;
+
+}
+.search-box{
+  width: 15rem;
+}
+.search-button{
+  width: 5rem;
+  padding: 1rem;
+ 
+}
+.search-icon {
+  margin-bottom: 1rem;
+ 
+}
+.navbar li a {
+ font-size: 1.1rem;
+
+  
+}
+}
+@media (max-width:756px){
   html{
-    font-size: 45%;
+    font-size: 40%;
   }
 }
