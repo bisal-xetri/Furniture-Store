@@ -44,9 +44,6 @@ if (isset($_SESSION['username'])) {
 }
 ?>
 
-
-
-
 <div class="swiper mySwiper">
   <div class="swiper-wrapper">
     <div class="swiper-slide"><img src="Image/wallpaper3.jpg" alt="" srcset=""></div>
@@ -65,7 +62,7 @@ if (isset($_SESSION['order'])) {
 ?>
 </div>
 <div class=explore-div>
-  <h3><a class="explore" href="">Explore Now</a></h3>
+  <h3><a class="explore" href="furniture-items.php">Explore Now</a></h3>
 </div>
 <div class="category-container" data-aos="fade-up" data-aos-delay="100">
   <?php
@@ -156,4 +153,104 @@ if (isset($_SESSION['order'])) {
 <div class="seemore">
   <a href="furniture-items.php">see more...</a>
 </div>
+<h1 class="work-title">We Deal With</h1>
+
+    <div class="how-it-work"  data-aos="fade-up" data-aos-delay="100">
+   
+       
+        <div class="choose-product product">
+            <figure  >
+            <img class="work-img" src="bedimage/king bed.webp" alt="">
+        </figure>
+            <h3>Modern Bed Set Designs</h3>
+          
+            <p>We deal with modern bedset design made from manufactured wood with solid wood veneers.Affordable price with high quality products.</p>
+
+        </div>
+        <div class="receive-product product">
+            <figure>
+                <img class="work-img" src="chairimage/slipperchair.webp" alt="">
+            </figure>
+            <h3>Modern Arm Chairs Design</h3>
+           
+            <p>We deal with All Modern Style Arm Chairs It oozes class and style and is very chic and modern in design, constructed from a durable solid wood.</p>
+
+        </div>
+        <div class="pay-product product">
+            <figure>
+                <img class="work-img" src="Image/table.jpg" alt="">
+            </figure>
+            <h3>New Table Designs</h3>
+     
+            <p>We deal with All Modern Style tables It oozes class and style and is very chic and modern in design, constructed from a durable solid wood.</p>
+
+        </div>
+        
+    </div>
+    <div class="how-it-work" data-aos="fade-up" data-aos-delay="100">
+   
+       
+   <div class="choose-product product">
+       <figure  >
+       <img class="work-img" src="Image/modernsofa.jpg" alt="">
+   </figure>
+       <h3>Modern Sofa Designs</h3>
+     
+       <p>We deal with All Modern Style Sofas/Couches ,very chic and modern in design, constructed from a durable solid wood.</p>
+
+   </div>
+   <div class="receive-product product">
+       <figure>
+           <img class="work-img" src="Image/newcupboard.jpg" alt="">
+       </figure>
+       <h3>New Stylish Cupboard Designs</h3>
+      
+       <p>We deal with All Modern Style Cupboards, built-in cupboards are storage space that forms part of the design of the room.</p>
+
+   </div>
+   <div class="pay-product product">
+       <figure>
+           <img class="work-img" src="Image/dinningset.jpg" alt="">
+       </figure>
+       <h3>Modern Dining Set</h3>
+
+       <p> We deal with dining Table It oozes class and style and is very chic and modern in design. Dining table constructed from a durable solid wood.</p>
+
+   </div>
+   
+</div>
+
+<h1 class="work-title" >How It Does Work</h1>
+
+    <div class="how-it-work" data-aos="fade-up" data-aos-delay="100">
+   
+       
+        <div class="choose-product product">
+            <figure>
+            <img  src="Image/mobileandlaptop.png" alt="">
+        </figure>
+            <h3>Product</h3>
+            <p>Choose your own product</p>
+            <p>Add product to cart or direct click on buy & proceed to checkout and put your shipping address then checkout that.</p>
+
+        </div>
+        <div class="receive-product product">
+            <figure>
+                <img src="Image/receive.png" alt="">
+            </figure>
+            <h3>Receive</h3>
+            <p>Receive Your Product</p>
+            <p>After checkout from cart your product will be deliver at your door step within 7 working days</p>
+
+        </div>
+        <div class="pay-product product">
+            <figure>
+                <img  src="Image/wallet.png" alt="">
+            </figure>
+            <h3>Pay</h3>
+            <p>Cash on delivery or pay with E-sewa</p>
+            <p> Receive your products then pay cash on that moment or direct pay and order.</p>
+
+        </div>
+    </div>
 <?php include('partial-front/footer.php'); ?>

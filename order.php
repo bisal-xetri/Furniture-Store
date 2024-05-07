@@ -95,12 +95,14 @@ if (isset($_SESSION['username'])) {
 
             <div class="order-label">Address</div>
             <textarea name="address" rows="5" placeholder="E.g. Street, City, Country" class="input-responsive" required><?php echo $address; ?></textarea>
-
+             <!-- <input type="radio" name="payment" id="" required> Offline Payment
+             <input type="radio" name="payment" id="" required> Pay with E-sewa -->
         </fieldset>
 
         <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary" />
 
     </form>
+    
     <?php
     if (isset($_POST['submit'])) {
         //get all the details of the order
@@ -132,7 +134,7 @@ if (isset($_SESSION['username'])) {
         $res2 = mysqli_query($con, $sql2);
         if ($res2) {
             $_SESSION['order'] = "<div class='success text-center' style='text-align:center;color:green;'>Furniture order Success.</div>";
-            header("location:" . SITEURL);
+            header("location:" . SITEURL.'customer/orders.php');
         } else {
             $_SESSION['order'] = "<div class='error' style='text-align:center;color:red;'>Failed to order Furniture. " . mysqli_error($con) . "</div>";
             header("location:" . SITEURL);

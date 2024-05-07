@@ -50,7 +50,7 @@ if (isset($_SESSION['username'])) {
     </div> -->
     <div class="header">
         <div class="title">
-            <h1><a href="<?php echo SITEURL; ?>">Himlayan Furniture</a></h1>
+            <h1><a href="<?php echo SITEURL; ?>">Himalayan Furniture</a></h1>
         </div>
 
         <form class="search" action="<?php echo SITEURL; ?>furniture-search.php" method="POST">
@@ -63,11 +63,9 @@ if (isset($_SESSION['username'])) {
         <div class="navbar">
             <li><a href="<?php echo SITEURL; ?>">Home</a></li>
             <li><a href="<?php echo SITEURL; ?>products.php">Products</a></li>
-            <li><a href="#">About Us</a></li>
+            <li><a href="<?php echo SITEURL; ?>aboutus.php">About Us</a></li>
             <li><a href="<?php echo SITEURL; ?>contact-us.php">Contact Us</a></li>
             <?php if (!isset($_SESSION['username'])) {
-
-
             ?>
                 <li><a href="<?php echo SITEURL; ?>user-signup.php">Sign In</a></li>
                 <li><a href="<?php echo SITEURL; ?>user-login.php">Log in</a></li>

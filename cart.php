@@ -123,11 +123,11 @@ if (isset($_SESSION['username'])) {
 
 
     <div class="cart-button">
-      <a href="furniture-items.php">
-        <button>Continue Shopping</button>
+      <a class="continue-btn" href="furniture-items.php">
+    Continue Shopping
       </a>
-      <a href="checkout.php">
-        <button>Proceed Checkout</button>
+      <a href="checkout.php" class="proceed-btn">
+        Proceed Checkout
       </a>
     </div>
 <?php } else {

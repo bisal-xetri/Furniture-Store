@@ -27,7 +27,7 @@
         background-color: #fb5607;
     }
 </style>
-<h3 class="explore-div"><a class="explore-furniture" href="">Explore Furniture</a></h3>
+<h3 class="explore-div"><a class="explore-furniture" href="furniture-items.php">Explore Furniture</a></h3>
 <div class="category-div" data-aos="fade-up" data-aos-delay="100">
     <?php
     $sql = "SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes'";

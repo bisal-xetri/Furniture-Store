@@ -23,6 +23,7 @@
                 <th> Contact</th>
                 <th>Email</th>
                 <th>Address</th>
+                <th>E-sewa</th>
                 <th>Actions</th>
             </tr>
             <?php
@@ -43,6 +44,7 @@
                     $customer_contact = $row['customer_contact'];
                     $customer_email = $row['customer_email'];
                     $customer_address = $row['customer_address'];
+                    $esewa=$row['esewa'];
             ?>
                     <tr class="font-size">
                         <td><?php echo $sn++; ?></td>
@@ -69,6 +71,7 @@
                         <td><?php echo $customer_contact; ?></td>
                         <td><?php echo $customer_email; ?></td>
                         <td><?php echo $customer_address; ?></td>
+                        <td><?php echo $esewa; ?></td>
                         <td>
                             <a class="btn-secondary" href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>"> Update Order</a>
                         </td>
