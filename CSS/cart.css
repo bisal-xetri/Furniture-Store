@@ -29,6 +29,9 @@
 .order-detail p {
   margin-top: 1rem;
 }
+.order-detail h3{
+  font-size: 1.6rem;
+}
 .order-detail-title {
   border-bottom: 0.1rem solid rgb(196, 194, 194);
 }

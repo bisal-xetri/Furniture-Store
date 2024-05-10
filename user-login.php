@@ -1,5 +1,4 @@
 <?php include('config/constant.php') ?>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,7 +15,7 @@
     <div class="main">
         <div class="wrapper">
             <form action="" method="post">
-                <h1>login</h1>
+                <h1>User login</h1>
                 <br>
                 <?php
                 if (isset($_SESSION['login'])) {

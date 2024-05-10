@@ -87,7 +87,7 @@ if (isset($_SESSION['id'])) {
                                             <img class="cart-image" src="<?php echo SITEURL; ?>Image/furniture/<?php echo $img1; ?> " alt="">
                                         </td>
                                         <td>
-                                            <h5><?php echo $title; ?></h5>
+                                            <h4><?php echo $title; ?></h4>
 
                                         </td>
                                         <td>

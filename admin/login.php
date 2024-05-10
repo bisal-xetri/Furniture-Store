@@ -60,12 +60,12 @@ if (isset($_POST['submit'])) {
     if ($res) {
         $count = mysqli_num_rows($res);
         if ($count == 1) {
-            $_SESSION['login'] = "<div class='success'>Login Successfully</div>";
+            $_SESSION['login'] = "<div class='success'>Admin successfully logged in</div>";
             $_SESSION['user'] = $username; //to check if user is logged in or not an logout will unset the
             header("Location:" . SITEURL . "admin/");
         } else {
             //session message
-            $_SESSION['login'] = "<div class='error'>User name or password did't match.</div>";
+            $_SESSION['login'] = "<div class='error'>Please enter the correct username and password.</div>";
             header("Location:" . SITEURL . "admin/login.php");
         }
     }

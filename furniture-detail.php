@@ -112,7 +112,7 @@ if (isset($_SESSION['username'])) {
             </div>
             <div class="detail-buy">
               <a href="<?php echo SITEURL;  ?>order.php?furniture_id=<?php echo $id; ?>" class="buy-option" onclick="a()">Buy</a>
-              <button class="addtocart-option" name="submit" type="submit"  onclick="a()">Add To Cart</button>
+              <button class="addtocart-option" name="submit"   onclick="a()">Add To Cart</button>
             </div>
           </form>
         </div>

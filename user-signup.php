@@ -1,5 +1,4 @@
 <?php include('config/constant.php') ?>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,10 +12,12 @@
 </head>
 
 <body>
+
+<link rel="stylesheet" href="CSS/login.css" />
     <div class="main">
         <div class="wrapper">
             <form action="" method="POST">
-                <h1>Signup</h1>
+                <h1>User Signup</h1>
                 <?php
                 if (isset($_SESSION['add'])) {
                     echo $_SESSION['add'];
