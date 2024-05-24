@@ -110,7 +110,16 @@ if (isset($_SESSION['username'])) {
         $price = $_POST['price'];
         $qty = $_POST['qty'];
         $total = $price * $qty; //
-        $order_date = date("Y-m-d h:i:s");
+        date_default_timezone_set('UTC');
+
+        // Get current UTC time
+        $utc_time = time();
+        
+        // Add 5 hours and 45 minutes to convert to Nepal Standard Time
+        $nepal_time = $utc_time + (5 * 3600) + (45 * 60);
+        
+        // Format the Nepal Standard Time
+        $order_date = date("Y-m-d H:i:s", $nepal_time);
         $status = "Ordered"; //
         $customer_name = $_POST['full-name'];
         $customer_contact = $_POST['contact'];

@@ -99,7 +99,7 @@ if (isset($_SESSION['username'])) {
           <?php
               }
             } else {
-              echo "<h2 class='cart-msg'>Your Cart is Empty</h2>";
+              echo "<h2 style='text-align:center; margin:auto' class='cart-msg'>Your Cart is Empty</h2>";
             }
           }
 
@@ -131,10 +131,10 @@ if (isset($_SESSION['username'])) {
       </a>
     </div>
 <?php } else {
-    echo "<h2>Your Cart is Empty</h2>";
+    echo "<h2 style='text-align:center; margin:auto;font-size:25px'>Your Cart is Empty</h2>";
   }
 } else {
-  echo " <h2> Your Cart is Empty</h2>";
+  echo " <h2 style='text-align:center; font-size:25px'> Your Cart is Empty</h2>";
 }
 ?>
 

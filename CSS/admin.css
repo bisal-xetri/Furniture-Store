@@ -7,6 +7,11 @@
   list-style: none;
   text-decoration: none;
 }
+body{
+  height:100vh;
+  display: flex;
+  flex-direction: column;
+}
 .wrapper {
   padding: 1%;
   width: 80%;
@@ -16,8 +21,12 @@
 .wrapper h1{
   margin-left: -10%;
 }
+.footer .wrapper a{
+  color:rgb(240, 64, 34);
+  font-weight: 700;
+}
 .menu{
-  background-color:#fd9644;
+  background-color: rgb(255, 99, 72);
 
 }
 
@@ -66,23 +75,25 @@
   float: left;
 }
 .tbl-full {
-  margin-left: -11%;
-  width: 100%;
+  margin-left: -12%;
+  width: 123%;
   border: 1px solid rgb(205, 197, 197);
 }
 .tbl-full tr th {
 padding: 1%;
   text-align: left;
-  font-size: 15px;
+  font-size: 13px;
   border-right: 1px solid rgb(205, 197, 197);
   border-bottom: 1px solid rgb(205, 197, 197);
   
 }
+/* order table */
+
 
 .tbl-full tr td {
-  padding:3px 20px;
+  padding:3px 17px;
   text-align: left;
-  font-size: 14px;
+  font-size: 13px;
   height: 30px;
   border-right: 1px solid rgb(205, 197, 197);
   border-bottom: 1px solid rgb(205, 197, 197);
@@ -116,6 +127,7 @@ padding: 1%;
   color: black;
   font-weight: bold;
   border-radius: 3px;
+  
 }
 .btn-secondary:hover {
   background-color: rgb(46, 213, 115);
@@ -133,6 +145,7 @@ padding: 1%;
 
 /* Css for footer */
 .footer {
-  background-color: rgb(255, 99, 72);
+  margin-top: auto;
+  background-color:#1982c4;
   color: white;
 }

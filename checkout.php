@@ -1,7 +1,18 @@
 <?php include('config/constant.php') ?>
 <?php include('partial-front/menu.php') ?>
 
+
 <?php
+
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+// use PHPMailer\PHPMailer\Exception;
+//Load Composer's autoloader
+require 'vendor/autoload.php';
+//Create an instance; passing `true` enables exceptions
+$mail = new PHPMailer(true);
 if (isset($_SESSION['id'])) {
     $customer_id    = $_SESSION['id'];
     $customer_email = $_SESSION['email'];
@@ -18,18 +29,34 @@ if (isset($_SESSION['id'])) {
         $address  = $_POST['address'];
         $number   = $_POST['phone_number'];
 
-        $order_date = date("Y-m-d h:i:s");
+        date_default_timezone_set('UTC');
+
+        // Get current UTC time
+        $utc_time = time();
+
+        // Add 5 hours and 45 minutes to convert to Nepal Standard Time
+        $nepal_time = $utc_time + (5 * 3600) + (45 * 60);
+
+        // Format the Nepal Standard Time
+        $order_date = date("Y-m-d H:i:s", $nepal_time);
         $status = "Ordered";
         $esewa = isset($_POST['esewa']) ? 1 : 0;
 
-
-
-        // Fetching customer contact from the session
-        // Assuming 'number' is the session variable for customer contact
-
+        // After sending, remove unnecessary debug info
+        // header("location:" . SITEURL . 'customer/orders.php');
         $cartt = "SELECT * FROM cart WHERE user_id='$customer_id'";
         $run  = mysqli_query($con, $cartt);
         if (mysqli_num_rows($run) > 0) {
+            $table = '<table border="1">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>';
+
             while ($row = mysqli_fetch_array($run)) {
                 $db_pro_id  = $row['product_id'];
                 $db_pro_qty  = $row['quantity'];
@@ -45,8 +72,12 @@ if (isset($_SESSION['id'])) {
                         $product_id = $pr_row['id']; // Fetching product_id from the database
 
                         $single_pro_total_price = $db_pro_qty * $price;
-
-
+                        $table .= '<tr>
+                        <td>' . $product_name . '</td>
+                        <td>' . $db_pro_qty . '</td>
+                        <td>'.'Rs.' . $single_pro_total_price . '</td>
+                    </tr>';
+                        $table .= '</tbody></table>';
 
                         $checkout_query = "INSERT INTO tbl_order SET
                           furniture='$product_name',
@@ -63,8 +94,26 @@ if (isset($_SESSION['id'])) {
                           product_id=$db_pro_id,
                             esewa=$esewa
                           ";
-
+                      
                         if (mysqli_query($con, $checkout_query)) {
+                              //Server settings
+                        // $mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
+                        $mail->isSMTP(); //Send using SMTP
+                        $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+                        $mail->SMTPAuth   = true; //Enable SMTP authentication
+                        $mail->Username   = 'dhakalbishal42@gmail.com'; //SMTP username
+                        $mail->Password   = 'irxsxafgpbegccxg'; //SMTP password
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+                        $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                        //Recipients
+                        $mail->setFrom('dhakalbishal42@gmail.com', 'Himalayan Furniture');
+                        $mail->addAddress($customer_email, $customer_name); //Add a recipient
+                        $mail->Subject = 'Orders Confirmation Message';
+                        $mail->Body = 'Thanks! for your order. It will be delivered within 7 working days.<br><br>' . $table;
+                        $mail->isHTML(true);
+                        $mail->send();
+                        $mail->SMTPDebug = 0;
                             $del_query = "DELETE FROM cart WHERE user_id = $customer_id AND product_id = $db_pro_id";
                             if (mysqli_query($con, $del_query)) {
                                 $_SESSION['message'] = "<div style='color:green; text-align:center'>
@@ -97,10 +146,8 @@ if (isset($_SESSION['id'])) {
                 <input type="number" name="phone_number" placeholder="Phone Number" class="form-control" value="<?php echo $customer_number; ?>" required><br><br>
 
                 <input type="submit" name="checkout" class="checkout-btn" value="Cash On Delivery" id="border-less">
-                
-            </form>
 
-          
+            </form>
             <?php
             $cart = "SELECT * FROM cart WHERE user_id='$customer_id'";
             $run  = mysqli_query($con, $cart);
@@ -134,8 +181,6 @@ if (isset($_SESSION['id'])) {
                     }
                 }
             }
-            
-         
             // Secret key provided by eSewa
             $tuid = time();
             $t_amt = $total;
@@ -145,7 +190,7 @@ if (isset($_SESSION['id'])) {
             $signature = base64_encode($s);
             //echo $signature
             ?>
-             
+
             <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="post">
                 <!-- Required hidden fields -->
                 <input type="hidden" id="amount" name="amount" value="<?php echo $total; ?>" required>
@@ -155,13 +200,13 @@ if (isset($_SESSION['id'])) {
                 <input type="hidden" id="product_code" name="product_code" value="EPAYTEST" required>
                 <input type="hidden" id="product_service_charge" name="product_service_charge" value="0" required>
                 <input type="hidden" id="product_delivery_charge" name="product_delivery_charge" value="0" required>
-                <input type="hidden" id="success_url" name="success_url" value="http://localhost/FurnitureStore/customer/orders.php" required>
-                <input type="hidden" id="failure_url" name="failure_url" value="https://google.com" required>
+                <input type="hidden" id="success_url" name="success_url" value="http://localhost/FurnitureStore/esewa_payment_success.php" required>
+                <input type="hidden" id="failure_url" name="failure_url" value="https://rc-epay.esewa.com.np/api/epay/main/v2/form" required>
                 <input type="hidden" id="signed_field_names" name="signed_field_names" value="total_amount,transaction_uuid,product_code" required>
                 <input type="hidden" id="signature" name="signature" value="<?php echo $signature; ?>" required>
 
                 <!-- Submit button -->
-                    <input type="submit" name="esewa" class="epay checkout-btn" value="Pay with eSewa">
+                <input type="submit" name="esewa" class="epay checkout-btn" value="Pay with eSewa">
             </form>
 
         </div>
@@ -171,20 +216,47 @@ if (isset($_SESSION['id'])) {
             <hr>
 
             <table class="checkout-tbl">
-                <th></th>
-                <th></th>
-                <th></th>
-                <th></th>
-                <tr>
-                    <td><img class="checkout-img" src="Image/furniture/<?php echo $img1; ?>" alt=""></td>
-                    <td><?php echo $title; ?></td>
-                    <td>x <?php echo $db_pro_qty; ?></td>
-                    <td> <?php echo $single_pro_total_price; ?></td>
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            $cart = "SELECT * FROM cart WHERE user_id='$customer_id'";
+            $run  = mysqli_query($con, $cart);
+            if (mysqli_num_rows($run) > 0) {
+                while ($cart_row = mysqli_fetch_array($run)) {
+                    $db_cust_id = $cart_row['user_id'];
+                    $db_pro_id  = $cart_row['product_id'];
+                    $db_pro_qty  = $cart_row['quantity'];
 
-                </tr>
+                    $pr_query  = "SELECT * FROM tbl_furniture WHERE id=$db_pro_id";
+                    $pr_run    = mysqli_query($con, $pr_query);
+                    if (mysqli_num_rows($pr_run) > 0) {
+                        while ($pr_row = mysqli_fetch_array($pr_run)) {
+                            $pid = $pr_row['id'];
+                            $title = $pr_row['title'];
+                            $price = $pr_row['price'];
+                            $img1 = $pr_row['image_name'];
 
-
-            </table>
+                            $single_pro_total_price = $db_pro_qty * $price;
+                            echo '<tr>
+                                <td><img class="checkout-img" src="Image/furniture/' . $img1 . '" alt=""></td>
+                                <td>' . $title . '</td>
+                                <td>x ' . $db_pro_qty . '</td>
+                                <td>Rs.' . $single_pro_total_price . '</td>
+                            </tr>';
+                        }
+                    }
+                }
+            }
+            ?>
+        </tbody>
+    </table>
             <div class="checkout-total">
                 <div class="checkout-total-info">
                     <p>Subtotal</p>

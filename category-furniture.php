@@ -39,6 +39,7 @@ if (isset($_SESSION['username'])) {
     }
 } else {
     echo "<script> function a(){alert('⚠️ Login is required to add this product into cart');}</script>";
+    
 }
 ?>
 
@@ -90,8 +91,8 @@ if (isset($_GET['category_id'])) {
                 <div class="chair-description">
                     <p class="chair-name"><?php echo $title; ?></p>
                     <p class="chair-price">Rs.<?php echo $price; ?></p>
-                    <a href="<?php echo SITEURL;  ?>order.php?furniture_id=<?php echo $id; ?>" class="buy">buy</a>
-                    <a href="category-furniture.php?cart_id=<?php echo $id; ?>&category_id=<?php echo $category_id; ?>" class="add-to-cart js-add-to-cart" onclick="a()">add to cart</a>
+
+                    <a href="category-furniture.php?cart_id=<?php echo $id; ?>&category_id=<?php echo $category_id; ?>" class="add-to-cart js-add-to-cart" onclick="a()"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
                 </div>
             </div>
     <?php

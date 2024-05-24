@@ -46,12 +46,12 @@
                     $customer_address = $row['customer_address'];
                     $esewa=$row['esewa'];
             ?>
-                    <tr class="font-size">
+                    <tr class="font-size tbl-order">
                         <td><?php echo $sn++; ?></td>
                         <td><?php echo $furniture; ?></td>
-                        <td><?php echo $price; ?></td>
+                        <td>Rs.<?php echo $price; ?></td>
                         <td><?php echo $qty; ?></td>
-                        <td><?php echo $total; ?></td>
+                        <td>Rs.<?php echo $total; ?></td>
                         <td><?php echo $order_date; ?></td>
                         <td>
                             <?php
@@ -71,9 +71,10 @@
                         <td><?php echo $customer_contact; ?></td>
                         <td><?php echo $customer_email; ?></td>
                         <td><?php echo $customer_address; ?></td>
-                        <td><?php echo $esewa; ?></td>
+                        <td><?php echo $esewa ? "True" : "False"; ?></td>
+
                         <td>
-                            <a class="btn-secondary" href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>"> Update Order</a>
+                            <a class="btn-secondary" href="<?php echo SITEURL; ?>admin/update-order.php?id=<?php echo $id; ?>"> Update </a>
                         </td>
                     </tr>
                     </tr>

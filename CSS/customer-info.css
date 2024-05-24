@@ -1,115 +1,106 @@
-.account-info{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 300px;
-    width: 100%;
-    font-size: 30px;
-    font-weight: 700;
-    background-color: #778da9;
-    text-transform: uppercase;
-   
+.account-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  font-size: 30px;
+  font-weight: 700;
+  background-color: #778da9;
+  text-transform: uppercase;
 }
 
 .user-information {
-    display: flex;
-    width: 70%;
-    margin-top: 30px;
-    margin-left: 150px;
-    margin-bottom: 50px;
-    justify-content: space-between;
+  display: flex;
+  width: 70%;
+  margin-top: 30px;
+  margin-left: 150px;
+  margin-bottom: 50px;
+  justify-content: space-between;
+}
 
-  }
-
-  .user-nav {
-    border: 1px solid gray;
-
-    padding-top: 17px;
-    margin-right: 50px;
+.user-nav {
+  border: 1px solid gray;
+  padding-top: 17px;
+  margin-right: 50px;
   height: 50%;
-    width: 42%;
-  }
-
-  .user-nav div {
-    padding: 5px;
-
-  }
-
-  .user-link {
-    text-decoration: none;
-
-    color: #0c93e7;
-    font-size: 17px;
-    vertical-align: top;
-  }
-
-  .user-link:hover {
-    text-decoration: underline;
-    color: #052f48;
-
-  }
-
-  .user-info-img {
-    height: 17px;
-    width: 17px;
-  
-    margin-right: 5px;
-
-  }
-  .user-detail-info h1{
-    border-bottom: 1px solid gray;
-  }
-
-  .user-detail-info p {
-    width: 80%;
-    text-align: justify;
-  }
-  .order-table {
-    border-collapse: collapse;
-   padding: 3px;
-  }
-  .order-table th{
-    padding: 10px;
-   
-    border-bottom:1px solid gray ;
-    font-size: 14px;
-  }
-  .order-img{
-      height: 100px;
-      width: 100px;
-  }
-  .order-table tr td{
-      text-align: center;
-      vertical-align: top;
-      font-size: 14px;
-    padding-top: 5px;
-  }
-  .personal-detail-form{
-          
-    padding: 10px;
-    
+  width: 45%;
 }
-.form-control{
-    width: 100%;
-    height: 35px;
-    padding-left: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color:rgb(237, 237, 237);
-   
+
+.user-nav div {
+  padding: 5px;
 }
-.form-control::placeholder{
+
+.user-link {
+  text-decoration: none;
+
+  color: #0c93e7;
+  font-size: 17px;
+  vertical-align: top;
+}
+
+.user-link:hover {
+  text-decoration: underline;
+  color: #052f48;
+}
+
+.user-info-img {
+  height: 17px;
+  width: 17px;
+
+  margin-right: 5px;
+}
+.user-detail-info h1 {
+  border-bottom: 1px solid gray;
+}
+
+.user-detail-info p {
+  width: 80%;
+  text-align: justify;
+}
+.order-table {
+  border-collapse: collapse;
+  padding: 3px;
+}
+.order-table th {
+  padding: 10px;
+
+  border-bottom: 1px solid gray;
+  font-size: 14px;
+}
+.order-img {
+  height: 100px;
+  width: 100px;
+}
+.order-table tr td {
+  text-align: center;
+  vertical-align: top;
+  font-size: 14px;
+  padding-top: 5px;
+}
+.personal-detail-form {
+  padding: 10px;
+}
+.form-control {
+  width: 100%;
+  height: 35px;
+  padding-left: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: rgb(237, 237, 237);
+}
+.form-control::placeholder {
   color: rgb(125, 123, 123);
 }
-.btn-update{
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    background-color: #0c93e7;
-    color: white;
-    cursor: pointer;
-    margin-top: 10px;
+.btn-update {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: #0c93e7;
+  color: white;
+  cursor: pointer;
+  margin-top: 10px;
 }
-.btn-update:hover{
-    background-color: #056eae;
+.btn-update:hover {
+  background-color: #056eae;
 }

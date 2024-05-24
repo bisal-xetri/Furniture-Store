@@ -1,3 +1,4 @@
+  
 .category-container {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -41,7 +42,9 @@
 .social img {
   height: 2rem;
 }
-
+.social{
+  margin-top: auto;
+}
 .footer p {
   margin-left: 43%;
   font-size: 1.5rem;

@@ -17,7 +17,8 @@ if (isset($_SESSION['username'])) {
         if (mysqli_num_rows($run_cart) == 0) {
           $cart_query = "INSERT INTO `cart`(`user_id`, `product_id`,quantity) VALUES ($custid,$p_id,1)";
           if (mysqli_query($con, $cart_query)) {
-            header('location:furniture-detail.php');
+            // header('location:furniture-detail.php');
+            header("Location:" . SITEURL . "furniture-detail.php");
             exit; // Exit after redirection
           }
         } else {
@@ -38,7 +39,7 @@ if (isset($_SESSION['username'])) {
     echo "Warning: 'id' session variable is not set";
   }
 } else {
-  echo "<script> function a(){alert('⚠️ Login is required to add this product into cart');}</script>";
+  echo "<script> function a(event){event.preventDefault();alert('⚠️ Login is required to add this product into cart');}</script>";
 }
 ?>
 
@@ -102,17 +103,42 @@ if (isset($_SESSION['username'])) {
                 }
               }
             } else if (!isset($_SESSION['username'])) {
-              echo "<script> function a(){alert('⚠️ Login is required to add this product into cart');}</script>";
+              echo "<script>";
+              echo "
+                  document.addEventListener('DOMContentLoaded', function(event) {
+                    event.preventDefault();
+                      var buyLink = document.querySelector('.buy-option');
+                      var addToCartBtn = document.querySelector('.addtocart-option');
+                      
+                      if (addToCartBtn) {
+                          addToCartBtn.addEventListener('click', function() {
+                              alert('⚠️ Login is required to add this product into cart');
+                          });
+                      }
+                      if (buyLink) {
+                          buyLink.addEventListener('click', function() {
+                              alert('⚠️ Login is required to Buy this product');
+                             
+                          });
+                      }
+                  });
+                  
+              ";
+
+              header("Location:" . SITEURL . "user-login.php");
+
+              echo "</script>";
             }
             ?>
+
 
             <div class="detail-quantity">
               Quantity:
               <input type="number" name="qty" min="1" value="1" required>
             </div>
             <div class="detail-buy">
-              <a href="<?php echo SITEURL;  ?>order.php?furniture_id=<?php echo $id; ?>" class="buy-option" onclick="a()">Buy</a>
-              <button class="addtocart-option" name="submit"   onclick="a()">Add To Cart</button>
+              <a href="<?php echo SITEURL; ?>order.php?furniture_id=<?php echo $id; ?>" class="buy-option">Buy</a>
+              <button class="addtocart-option" name="submit">Add To Cart</button>
             </div>
           </form>
         </div>
@@ -124,7 +150,7 @@ if (isset($_SESSION['username'])) {
       echo "Error executing query: " . mysqli_error($con);
     }
   } else {
-    echo "Error: 'image_id' parameter is missing in the URL";
+    echo "Error: 'image_id' parameter is missing in the URL" . mysqli_error($con);
   }
   ?>
 </div>
@@ -132,7 +158,9 @@ if (isset($_SESSION['username'])) {
 <h3 class='recommended-title'>Recommended for you:</h3>
 <div class="chair-type">
   <?php
-
+  //   if (isset($_GET['image_id'])) {
+  // $image_id = $_GET['image_id'];
+  //   }
   if (isset($image_id)) {
     $sql2 = "(SELECT * FROM tbl_furniture 
     WHERE active='YES' AND featured='YES' 
@@ -159,7 +187,7 @@ if (isset($_SESSION['username'])) {
           $price = $row['price'];
           $image_name = $row['image_name'];
   ?>
-          <div class="chair-info" >
+          <div class="chair-info">
             <div class="chair-picture">
               <?php
               if ($image_name == '') {
@@ -176,8 +204,8 @@ if (isset($_SESSION['username'])) {
             <div class="chair-description">
               <p class="chair-name"><?php echo $title; ?></p>
               <p class="chair-price">Rs.<?php echo $price; ?></p>
-              <a href="<?php echo SITEURL;  ?>order.php?furniture_id=<?php echo $id; ?>" class="buy" onclick="a()">buy</a>
-              <a href="furniture-detail.php?cart_id=<?php echo $id; ?>" class="add-to-cart" onclick="a()">add to cart</a>
+
+              <a href="furniture-detail.php?cart_id=<?php echo $id; ?>" class="add-to-cart" onclick="a()"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
             </div>
           </div>
   <?php
@@ -190,7 +218,7 @@ if (isset($_SESSION['username'])) {
       echo "Error executing query: " . mysqli_error($con);
     }
   } else {
-    echo "Error: 'image_id' is not defined";
+    echo "Error: 'image_id' is not defined" . mysqli_error($con);
   }
   ?>
 </div>

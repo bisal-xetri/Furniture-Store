@@ -44,17 +44,23 @@
 }
 .add-to-cart {
   border: none;
-  padding: .3rem .8rem;
+  padding: .3rem 1rem;
   border-radius: .3rem;
   margin-left: 1.3rem;
-  background-color: rgb(245, 114, 36);
+  background-color: rgb(42, 187, 232);
   cursor: pointer;
   color: white;
-
+  text-align: center;
+  width: 100%;
+text-transform: uppercase;
  
 }
+.add-to-cart i{
+  color: #fff;
+  font-size: 1.6rem;
+}
 .add-to-cart:hover {
-  background-color: rgb(207, 98, 34);
+  background-color: rgb(20, 131, 164);
 }
 .chair-description p {
   margin-left: 1.3rem;
