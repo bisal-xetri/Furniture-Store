@@ -41,6 +41,7 @@ if (!isset($_SESSION['username'])) {
         <th>Total Price</th>
         <th>Ordered Date</th>
         <th>Status</th>
+        <th>Pay</th>
 
         <?php
         while ($order_row = mysqli_fetch_array($run)) {
@@ -49,6 +50,7 @@ if (!isset($_SESSION['username'])) {
           $order_amount  = $order_row['total'];
           $order_date    = $order_row['order_date'];
           $order_status  = $order_row['status'];
+          $esewa=$order_row['esewa'];
 
           $pro_query  = "SELECT * FROM tbl_furniture WHERE id = $order_pro_id";
           $pro_run    = mysqli_query($con, $pro_query);
@@ -72,13 +74,14 @@ if (!isset($_SESSION['username'])) {
                 <td>
                   x <?php echo $order_qty; ?>
                 </td>
-                <td><?php echo $order_amount; ?> </td>
+                <td>Rs.<?php echo $order_amount; ?> </td>
                 <td><?php echo $order_date; ?></td>
                 <td><?php
                     if ($order_status == 'On Delivery' || $order_status == 'Delivered' || $order_status == 'Canceled' || $order_status == 'Ordered') {
                       echo $order_status;
                     }
                     ?> </td>
+                     <td><?php echo $esewa ? "Yes" : "No"; ?></td>
               </tr>
         <?php
             }

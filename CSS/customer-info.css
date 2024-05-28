@@ -61,6 +61,7 @@
 .order-table {
   border-collapse: collapse;
   padding: 3px;
+
 }
 .order-table th {
   padding: 10px;
@@ -71,11 +72,12 @@
 .order-img {
   height: 100px;
   width: 100px;
+  border-radius: 5px;
 }
 .order-table tr td {
   text-align: center;
   vertical-align: top;
-  font-size: 14px;
+  font-size: 12px;
   padding-top: 5px;
 }
 .personal-detail-form {

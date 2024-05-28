@@ -19,10 +19,10 @@ include('login-check.php');
             <ul>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="manage-admin.php">Admin</a></li>
-                <li><a href="manage-user.php">users</a></li>
+                <li><a href="manage-user.php">Users</a></li>
                 <li><a href="manage-category.php">Category</a></li>
                 <li><a href="manage-furniture.php">Furniture</a></li>
-                <li><a href="manage-order.php">Order</a></li>
+                <li><a href="manage-order.php">Orders</a></li>
                 <li><a href="logout.php">logout</a></li>
 
             </ul>

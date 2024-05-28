@@ -12,13 +12,15 @@ use PHPMailer\PHPMailer\SMTP;
 //Load Composer's autoloader
 require 'vendor/autoload.php';
 //Create an instance; passing `true` enables exceptions
-$mail = new PHPMailer(true);
+
 if (isset($_SESSION['id'])) {
     $customer_id    = $_SESSION['id'];
     $customer_email = $_SESSION['email'];
     $customer_name  = $_SESSION['username'];
     $customer_add   = $_SESSION['add'];
     $customer_number = $_SESSION['number'];
+
+    // echo $furniture_id;
 
     $sub_total = 0;
     $shipping_cost = 0;
@@ -63,6 +65,7 @@ if (isset($_SESSION['id'])) {
 
 
                 $pr_query  = "SELECT * FROM tbl_furniture WHERE id=$db_pro_id";
+
                 $pr_run    = mysqli_query($con, $pr_query);
                 if (mysqli_num_rows($pr_run) > 0) {
                     while ($pr_row = mysqli_fetch_array($pr_run)) {
@@ -75,7 +78,7 @@ if (isset($_SESSION['id'])) {
                         $table .= '<tr>
                         <td>' . $product_name . '</td>
                         <td>' . $db_pro_qty . '</td>
-                        <td>'.'Rs.' . $single_pro_total_price . '</td>
+                        <td>' . 'Rs.' . $single_pro_total_price . '</td>
                     </tr>';
                         $table .= '</tbody></table>';
 
@@ -94,26 +97,27 @@ if (isset($_SESSION['id'])) {
                           product_id=$db_pro_id,
                             esewa=$esewa
                           ";
-                      
-                        if (mysqli_query($con, $checkout_query)) {
-                              //Server settings
-                        // $mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
-                        $mail->isSMTP(); //Send using SMTP
-                        $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
-                        $mail->SMTPAuth   = true; //Enable SMTP authentication
-                        $mail->Username   = 'dhakalbishal42@gmail.com'; //SMTP username
-                        $mail->Password   = 'irxsxafgpbegccxg'; //SMTP password
-                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
-                        $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
-                        //Recipients
-                        $mail->setFrom('dhakalbishal42@gmail.com', 'Himalayan Furniture');
-                        $mail->addAddress($customer_email, $customer_name); //Add a recipient
-                        $mail->Subject = 'Orders Confirmation Message';
-                        $mail->Body = 'Thanks! for your order. It will be delivered within 7 working days.<br><br>' . $table;
-                        $mail->isHTML(true);
-                        $mail->send();
-                        $mail->SMTPDebug = 0;
+                        if (mysqli_query($con, $checkout_query)) {
+                            //Server settings
+                            // $mail->SMTPDebug = SMTP::DEBUG_SERVER; //Enable verbose debug output
+                            $mail = new PHPMailer(true);
+                            $mail->isSMTP(); //Send using SMTP
+                            $mail->Host       = 'smtp.gmail.com'; //Set the SMTP server to send through
+                            $mail->SMTPAuth   = true; //Enable SMTP authentication
+                            $mail->Username   = 'dhakalbishal42@gmail.com'; //SMTP username
+                            $mail->Password   = 'irxsxafgpbegccxg'; //SMTP password
+                            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS; //Enable implicit TLS encryption
+                            $mail->Port       = 465; //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+
+                            //Recipients
+                            $mail->setFrom('dhakalbishal42@gmail.com', 'Himalayan Furniture');
+                            $mail->addAddress($customer_email, $customer_name); //Add a recipient
+                            $mail->Subject = 'Orders Confirmation Message';
+                            $mail->Body = 'Thanks! for your order. It will be delivered within 7 working days.<br><br>' . $table;
+                            $mail->isHTML(true);
+                            $mail->send();
+                            $mail->SMTPDebug = 0;
                             $del_query = "DELETE FROM cart WHERE user_id = $customer_id AND product_id = $db_pro_id";
                             if (mysqli_query($con, $del_query)) {
                                 $_SESSION['message'] = "<div style='color:green; text-align:center'>
@@ -216,47 +220,47 @@ if (isset($_SESSION['id'])) {
             <hr>
 
             <table class="checkout-tbl">
-        <thead>
-            <tr>
-                <th>Product Image</th>
-                <th>Name</th>
-                <th>Quantity</th>
-                <th>Total Price</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php
-            $cart = "SELECT * FROM cart WHERE user_id='$customer_id'";
-            $run  = mysqli_query($con, $cart);
-            if (mysqli_num_rows($run) > 0) {
-                while ($cart_row = mysqli_fetch_array($run)) {
-                    $db_cust_id = $cart_row['user_id'];
-                    $db_pro_id  = $cart_row['product_id'];
-                    $db_pro_qty  = $cart_row['quantity'];
+                <thead>
+                    <tr>
+                        <th>Product Image</th>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $cart = "SELECT * FROM cart WHERE user_id='$customer_id'";
+                    $run  = mysqli_query($con, $cart);
+                    if (mysqli_num_rows($run) > 0) {
+                        while ($cart_row = mysqli_fetch_array($run)) {
+                            $db_cust_id = $cart_row['user_id'];
+                            $db_pro_id  = $cart_row['product_id'];
+                            $db_pro_qty  = $cart_row['quantity'];
 
-                    $pr_query  = "SELECT * FROM tbl_furniture WHERE id=$db_pro_id";
-                    $pr_run    = mysqli_query($con, $pr_query);
-                    if (mysqli_num_rows($pr_run) > 0) {
-                        while ($pr_row = mysqli_fetch_array($pr_run)) {
-                            $pid = $pr_row['id'];
-                            $title = $pr_row['title'];
-                            $price = $pr_row['price'];
-                            $img1 = $pr_row['image_name'];
+                            $pr_query  = "SELECT * FROM tbl_furniture WHERE id=$db_pro_id";
+                            $pr_run    = mysqli_query($con, $pr_query);
+                            if (mysqli_num_rows($pr_run) > 0) {
+                                while ($pr_row = mysqli_fetch_array($pr_run)) {
+                                    $pid = $pr_row['id'];
+                                    $title = $pr_row['title'];
+                                    $price = $pr_row['price'];
+                                    $img1 = $pr_row['image_name'];
 
-                            $single_pro_total_price = $db_pro_qty * $price;
-                            echo '<tr>
+                                    $single_pro_total_price = $db_pro_qty * $price;
+                                    echo '<tr>
                                 <td><img class="checkout-img" src="Image/furniture/' . $img1 . '" alt=""></td>
                                 <td>' . $title . '</td>
                                 <td>x ' . $db_pro_qty . '</td>
                                 <td>Rs.' . $single_pro_total_price . '</td>
                             </tr>';
+                                }
+                            }
                         }
                     }
-                }
-            }
-            ?>
-        </tbody>
-    </table>
+                    ?>
+                </tbody>
+            </table>
             <div class="checkout-total">
                 <div class="checkout-total-info">
                     <p>Subtotal</p>

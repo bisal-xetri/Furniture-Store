@@ -47,7 +47,7 @@ if (isset($_SESSION['username'])) {
   <?php
   if (isset($_GET['image_id'])) {
     $image_id = $_GET['image_id'];
-    $sql = "SELECT * FROM tbl_furniture WHERE id=$image_id";
+    $sql = "SELECT * FROM tbl_furniture WHERE id=$image_id ";
     $res = mysqli_query($con, $sql);
     if ($res) {
       $count = mysqli_num_rows($res);
@@ -165,7 +165,6 @@ if (isset($_SESSION['username'])) {
     $sql2 = "(SELECT * FROM tbl_furniture 
     WHERE active='YES' AND featured='YES' 
     AND category_id = (SELECT category_id FROM tbl_furniture WHERE id=$image_id)
-
     AND id != $image_id
     LIMIT 3)
     UNION
