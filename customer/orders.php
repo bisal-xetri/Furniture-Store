@@ -42,6 +42,7 @@ if (!isset($_SESSION['username'])) {
         <th>Ordered Date</th>
         <th>Status</th>
         <th>Pay</th>
+        <th>Download Slip</th>
 
         <?php
         while ($order_row = mysqli_fetch_array($run)) {
@@ -82,7 +83,10 @@ if (!isset($_SESSION['username'])) {
                     }
                     ?> </td>
                      <td><?php echo $esewa ? "Yes" : "No"; ?></td>
+                     <td><a href="invoice.php?order_id=<?php echo $order_row['id']; ?>"><i class="ri-file-download-fill"></i></a></td>
+
               </tr>
+              
         <?php
             }
           }

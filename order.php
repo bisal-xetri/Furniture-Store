@@ -1,10 +1,14 @@
 <?php ob_start(); ?>
 <?php include('config/constant.php') ?>
-
 <?php include('partial-front/menu.php') ?>
-
-<link rel="stylesheet" href="CSS/buy.css">
 <?php
+// Import PHPMailer classes into the global namespace
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
 if (isset($_SESSION['username'])) {
     // Check if 'id' session variable is set
     if (isset($_SESSION['id'])) {
@@ -24,7 +28,6 @@ if (isset($_SESSION['username'])) {
                 $price = $row['price'];
                 $image_name = $row['image_name'];
             } else {
-
                 echo "<script> function a(){alert('⚠️ Login is required to buy this product');}</script>";
                 header("Location:" . SITEURL);
             }
@@ -36,7 +39,7 @@ if (isset($_SESSION['username'])) {
     header('Location:' . SITEURL);
 }
 ?>
-
+<link rel="stylesheet" href="CSS/buy.css">
 
 <div class="main">
     <form action="" method="post" class="order">
@@ -52,11 +55,8 @@ if (isset($_SESSION['username'])) {
                     ?>
                         <img src="<?php echo SITEURL; ?>/Image/furniture/<?php echo $image_name; ?>" alt="" class="selected-image" />
                     <?php
-
                     }
-
                     ?>
-
                 </div>
                 <div class="selected-furniture-des">
                     <h3><?php echo $title; ?></h3>
@@ -66,7 +66,6 @@ if (isset($_SESSION['username'])) {
 
                     <div class="order-label">Quantity</div>
                     <input type="number" name="qty" class="input-responsive" min="1" value="1" required />
-
                 </div>
             </div>
         </fieldset>
@@ -95,14 +94,11 @@ if (isset($_SESSION['username'])) {
 
             <div class="order-label">Address</div>
             <textarea name="address" rows="5" placeholder="E.g. Street, City, Country" class="input-responsive" required><?php echo $address; ?></textarea>
-             <!-- <input type="radio" name="payment" id="" required> Offline Payment
-             <input type="radio" name="payment" id="" required> Pay with E-sewa -->
         </fieldset>
 
         <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary" />
-
     </form>
-    
+
     <?php
     if (isset($_POST['submit'])) {
         //get all the details of the order
@@ -125,6 +121,7 @@ if (isset($_SESSION['username'])) {
         $customer_contact = $_POST['contact'];
         $customer_email = $_POST['email'];
         $customer_address = $_POST['address'];
+        $esewa = 0;  // eSewa value set to 0
 
         $sql2 = "INSERT INTO tbl_order SET
         furniture='$furniture',
@@ -138,19 +135,52 @@ if (isset($_SESSION['username'])) {
         customer_email='$customer_email',
         customer_address='$customer_address',
         customer_id=$custid,
-        product_id=$id
+        product_id=$id,
+        esewa=$esewa
         ";
         $res2 = mysqli_query($con, $sql2);
         if ($res2) {
+            // Send confirmation email
+            $mail = new PHPMailer(true);
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'dhakalbishal42@gmail.com';
+                $mail->Password = 'irxsxafgpbegccxg';
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port = 465;
+
+                //Recipients
+                $mail->setFrom('dhakalbishal42@gmail.com', 'Himalayan Furniture');
+                $mail->addAddress($customer_email, $customer_name);
+
+                //Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Order Confirmation';
+                $mail->Body = 'Thank you for your order. Your order details are as follows:<br>' .
+                    'Furniture: ' . $furniture . '<br>' .
+                    'Price: Rs.' . $price . '<br>' .
+                    'Quantity: ' . $qty . '<br>' .
+                    'Total: Rs.' . $total . '<br>' .
+                    'Order Date: ' . $order_date . '<br>';
+
+                $mail->send();
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
+            // Redirect to orders page
             $_SESSION['order'] = "<div class='success text-center' style='text-align:center;color:green;'>Furniture order Success.</div>";
-            header("location:" . SITEURL.'customer/orders.php');
+            header("location:" . SITEURL . 'customer/orders.php');
         } else {
             $_SESSION['order'] = "<div class='error' style='text-align:center;color:red;'>Failed to order Furniture. " . mysqli_error($con) . "</div>";
             header("location:" . SITEURL);
         }
-    } else {
     }
     ?>
 </div>
+
 <?php include('partial-front/footer.php') ?>
 <?php ob_end_flush(); ?>

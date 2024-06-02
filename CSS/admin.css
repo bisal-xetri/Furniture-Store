@@ -152,6 +152,11 @@ padding: 1%;
 .tbl-30 {
   width: 30%;
 }
+tbody textarea, tbody select, tbody input[type="text"], tbody input[type="number"], tbody input[type="password"]{
+ display: block;
+  width: 250px;
+  padding: 5px;
+}
 .update-input{
   padding: 3%;
   border-radius: 5px;
@@ -174,6 +179,8 @@ padding: 1%;
 .btn-secondary {
   background-color: rgb(123, 237, 159);
   padding: 1%;
+  width: 150px;
+  border: none;
   color: black;
   font-weight: bold;
   border-radius: 3px;
@@ -192,6 +199,7 @@ padding: 1%;
 .btn-danger:hover {
   background-color: rgb(238, 20, 38);
 }
+
 
 /* Css for footer */
 .footer {

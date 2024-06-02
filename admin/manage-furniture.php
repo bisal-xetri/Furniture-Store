@@ -58,7 +58,7 @@
                     <tr>
                         <td><?php echo $sn++; ?>.</td>
                         <td><?php echo $title; ?></td>
-                        <td><?php echo $price; ?></td>
+                        <td>Rs.<?php echo $price; ?></td>
                         <td>
                             <?php
                             if ($image_name == '') {

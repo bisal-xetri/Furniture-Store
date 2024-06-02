@@ -1,5 +1,6 @@
 <?php
-include('../config/constant.php');
+ include('../config/constant.php'); 
+ include('partials/sidebar.php'); 
 if (isset($_GET['id']) and isset($_GET['image_name'])) {
     //echo "process to delete";
     //1.get id and image name

@@ -24,7 +24,7 @@ if (isset($_SESSION['username'])) {
                     while ($row = mysqli_fetch_array($run_cart)) {
                         $exist_pro_id = $row['product_id'];
                         if ($p_id == $exist_pro_id) {
-                            $error = "<script> alert('⚠️ This product is already in your cart  ');</script>";
+                            echo "<script> alert('⚠️ This product is already in your cart');</script>";
                         }
                     }
                 }
@@ -38,7 +38,7 @@ if (isset($_SESSION['username'])) {
         echo "Warning: 'id' session variable is not set";
     }
 } else {
-    echo "<script> function a(){alert('⚠️ Login is required to add this product into cart');}</script>";
+    echo "<script>function a(event){event.preventDefault();alert('⚠️ Login is required to add this product into cart');}</script>";
     
 }
 ?>
@@ -92,7 +92,7 @@ if (isset($_GET['category_id'])) {
                     <p class="chair-name"><?php echo $title; ?></p>
                     <p class="chair-price">Rs.<?php echo $price; ?></p>
 
-                    <a href="category-furniture.php?cart_id=<?php echo $id; ?>&category_id=<?php echo $category_id; ?>" class="add-to-cart js-add-to-cart" onclick="a()"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
+                    <a href="category-furniture.php?cart_id=<?php echo $id; ?>&category_id=<?php echo $category_id; ?>" class="add-to-cart js-add-to-cart" onclick="a(event)"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
                 </div>
             </div>
     <?php

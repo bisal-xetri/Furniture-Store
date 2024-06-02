@@ -1,5 +1,6 @@
 <?php include('config/constant.php'); ?>
 <?php include('partial-front/menu.php'); ?>
+
 <?php
 // Start or resume the session
 
@@ -17,18 +18,14 @@ if (isset($_SESSION['username'])) {
 
             if ($run_cart) {
                 if (mysqli_num_rows($run_cart) == 0) {
-                    $cart_query = "INSERT INTO `cart`(`user_id`, `product_id`,quantity) VALUES ($custid,$p_id,1)";
+                    $cart_query = "INSERT INTO `cart`(`user_id`, `product_id`, quantity) VALUES ($custid, $p_id, 1)";
                     if (mysqli_query($con, $cart_query)) {
-                        header('location:furniture-search.php');
+                        header('location:furniture-search.php?car_id='.$p_id);
                         exit; // Exit after redirection
                     }
                 } else {
-                    while ($row = mysqli_fetch_array($run_cart)) {
-                        $exist_pro_id = $row['product_id'];
-                        if ($p_id == $exist_pro_id) {
-                            $error = "<script> alert('⚠️ This product is already in your cart  ');</script>";
-                        }
-                    }
+                    // Display alert if product is already in the cart
+                    echo "<script>alert('⚠️ This product is already in your cart');</script>";
                 }
             } else {
                 // Handle query execution failure
@@ -40,7 +37,7 @@ if (isset($_SESSION['username'])) {
         echo "Warning: 'id' session variable is not set";
     }
 } else {
-    echo "<script> function a(){alert('⚠️ Login is required to add this product into cart');}</script>";
+    echo "<script>function a(event){event.preventDefault();alert('⚠️ Login is required to add this product into cart');}</script>";
 }
 ?>
 
@@ -54,64 +51,56 @@ if (isset($_SESSION['username'])) {
         <h2>Furniture on Your Search <span style="color:#fb5607;">"<?php echo $search ?>"</span></h2>
     </div>
 </div>
-<div class=explore-div>
+<div class="explore-div">
     <h3><a class="explore" href="">Furniture Items</a></h3>
 </div>
 <div class="chair-type">
     <?php
+    // Validate the search term
+    if ($search != '') {
+        // SQL query to get furniture based on search
+        $sql = "SELECT * FROM tbl_furniture WHERE title LIKE '%$search%' OR description LIKE '%$search%'";
 
+        // Execute query
+        $res = mysqli_query($con, $sql);
+        $count = mysqli_num_rows($res);
 
-    ////sql query to get food based on search
-
-    $sql = "SELECT * FROM tbl_furniture WHERE title LIKE '%$search%' OR description LIKE '%$search%'";
-
-
-    //execute query
-    $res = mysqli_query($con, $sql);
-    $count = mysqli_num_rows($res);
-    if ($count > 0) {
-        while ($row = mysqli_fetch_assoc($res)) {
-            $id = $row['id'];
-            $title = $row['title'];
-            $price = $row['price'];
-            $description = $row['description'];
-            $image_name = $row['image_name'];
+        if ($count > 0) {
+            while ($row = mysqli_fetch_assoc($res)) {
+                $id = $row['id'];
+                $title = $row['title'];
+                $price = $row['price'];
+                $description = $row['description'];
+                $image_name = $row['image_name'];
     ?>
-            <div class="chair-info">
-                <div class="chair-picture">
-                    <?php
-                    if ($image_name == '') {
-                        echo "<div class='error'>Image not available.</div>";
-                    } else {
-                    ?>
-                        <a href="<?php echo SITEURL; ?>furniture-detail.php?image_id=<?php echo $id; ?>">
-                            <img src="<?php echo SITEURL; ?>Image/furniture/<?php echo $image_name; ?>" alt="" />
-                        </a>
-                    <?php
-
-                    }
-
-                    ?>
-
+                <div class="chair-info">
+                    <div class="chair-picture">
+                        <?php
+                        if ($image_name == '') {
+                            echo "<div class='error'>Image not available.</div>";
+                        } else {
+                        ?>
+                            <a href="<?php echo SITEURL; ?>furniture-detail.php?image_id=<?php echo $id; ?>">
+                                <img src="<?php echo SITEURL; ?>Image/furniture/<?php echo $image_name; ?>" alt="" />
+                            </a>
+                        <?php
+                        }
+                        ?>
+                    </div>
+                    <div class="chair-description">
+                        <p class="chair-name"><?php echo $title; ?></p>
+                        <p class="chair-price">Rs.<?php echo $price; ?></p>
+                        <a href="furniture-search.php?cart_id=<?php echo $id; ?>" class="add-to-cart js-add-to-cart" onclick="a(event)"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
+                    </div>
                 </div>
-                <div class="chair-description">
-                    <p class="chair-name"><?php echo $title; ?></p>
-                    <p class="chair-price">Rs.<?php echo $price; ?></p>
-                    
-                    <a href="furniture-search.php?cart_id=<?php echo $id; ?>" class="add-to-cart js-add-to-cart" onclick="a()"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
-                    
-
-                </div>
-            </div>
-
     <?php
-
+            }
+        } else {
+            echo "<div class='error' style='font-size:15px; '>Furniture not found</div>";
         }
     } else {
-        echo "<div class='error'>Furniture not found</div>";
+        echo "<div class='error'>Please enter a search term.</div>";
     }
     ?>
-
-
 </div>
 <?php include('partial-front/footer.php'); ?>

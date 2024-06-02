@@ -106,3 +106,30 @@
 .btn-update:hover {
   background-color: #056eae;
 }
+i{
+  font-size: 18px;
+}
+.social ul li {
+  display: inline-block;
+
+  padding-left: .5rem;
+}
+.social ul {
+  margin-top: 10rem;
+  margin-left: 50%;
+}
+.social img {
+  height: 2rem;
+}
+.social{
+  margin-top: auto;
+}
+.footer p {
+  margin-left: 43%;
+  font-size: 1.5rem;
+}
+.footer a {
+  color: red;
+  padding: .3rem;
+  border-radius: .3rem;
+}

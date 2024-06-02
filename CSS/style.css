@@ -227,6 +227,12 @@ input::placeholder {
   margin-left: 2rem;
   margin-top: 2rem;
 }
+.error{
+  color: rgb(235, 91, 7);
+  font-size: 1.5rem;
+  margin-left: 2rem;
+  margin-top: 2rem;
+}
 @media (max-width:998px){
   html{
     font-size: 55%;

@@ -2,7 +2,6 @@
 include('config/constant.php');
 include('partial-front/menu.php');
 
-
 if (isset($_SESSION['username'])) {
   if (isset($_SESSION['id'])) {
     $custid = $_SESSION['id'];
@@ -17,29 +16,26 @@ if (isset($_SESSION['username'])) {
         if (mysqli_num_rows($run_cart) == 0) {
           $cart_query = "INSERT INTO `cart`(`user_id`, `product_id`,quantity) VALUES ($custid,$p_id,1)";
           if (mysqli_query($con, $cart_query)) {
-            // header('location:furniture-detail.php');
-            header("Location:" . SITEURL . "furniture-detail.php");
+            header("Location:" . SITEURL . "furniture-detail.php?image_id=" . $_GET['image_id']);
             exit; // Exit after redirection
           }
         } else {
           while ($row = mysqli_fetch_array($run_cart)) {
             $exist_pro_id = $row['product_id'];
             if ($p_id == $exist_pro_id) {
-              $error = "<script> alert('⚠️ This product is already in your cart  ');</script>";
+              echo "<script> alert('⚠️ This product is already in your cart');</script>";
             }
           }
         }
       } else {
-        // Handle query execution failure
         echo "Error executing query: " . mysqli_error($con);
       }
     }
   } else {
-    // Handle 'id' session variable not being set
     echo "Warning: 'id' session variable is not set";
   }
 } else {
-  echo "<script> function a(event){event.preventDefault();alert('⚠️ Login is required to add this product into cart');}</script>";
+  echo "<script>function a(event){event.preventDefault();alert('⚠️ Login is required to add this product into cart');}</script>";
 }
 ?>
 
@@ -47,7 +43,7 @@ if (isset($_SESSION['username'])) {
   <?php
   if (isset($_GET['image_id'])) {
     $image_id = $_GET['image_id'];
-    $sql = "SELECT * FROM tbl_furniture WHERE id=$image_id ";
+    $sql = "SELECT * FROM tbl_furniture WHERE id=$image_id";
     $res = mysqli_query($con, $sql);
     if ($res) {
       $count = mysqli_num_rows($res);
@@ -86,7 +82,7 @@ if (isset($_SESSION['username'])) {
               $custid = $_SESSION['id'];
               if (isset($_POST['submit'])) {
                 $qty = $_POST['qty'];
-                $sel_cart = "SELECT * FROM cart WHERE user_id = $custid and product_id = $id ";
+                $sel_cart = "SELECT * FROM cart WHERE user_id = $custid and product_id = $id";
                 $run_cart = mysqli_query($con, $sel_cart);
 
                 if ($run_cart === false) {
@@ -98,40 +94,35 @@ if (isset($_SESSION['username'])) {
                       header("location:furniture-detail.php?image_id=$id");
                     }
                   } else {
-                    echo "<script>alert('⚠️ This product is already in your cart '); </script>";
+                    echo "<script>function a(event){event.preventDefault(); alert('⚠️ This product is already in your cart');}</script>";
                   }
                 }
               }
-            } else if (!isset($_SESSION['username'])) {
-              echo "<script>";
-              echo "
-                  document.addEventListener('DOMContentLoaded', function(event) {
-                    event.preventDefault();
-                      var buyLink = document.querySelector('.buy-option');
-                      var addToCartBtn = document.querySelector('.addtocart-option');
-                      
-                      if (addToCartBtn) {
-                          addToCartBtn.addEventListener('click', function() {
-                              alert('⚠️ Login is required to add this product into cart');
-                          });
-                      }
-                      if (buyLink) {
-                          buyLink.addEventListener('click', function() {
-                              alert('⚠️ Login is required to Buy this product');
-                             
-                          });
-                      }
-                  });
+            } else {
+              echo "<script>
+                document.addEventListener('DOMContentLoaded', function(event) {
+                  event.preventDefault();
+                  var buyLink = document.querySelector('.buy-option');
+                  var addToCartBtn = document.querySelector('.addtocart-option');
                   
-              ";
-
-              header("Location:" . SITEURL . "user-login.php");
-
-              echo "</script>";
+                  if (addToCartBtn) {
+                      addToCartBtn.addEventListener('click', function(event) {
+                          event.preventDefault();
+                          alert('⚠️ Login is required to add this product into cart');
+                        
+                      });
+                  }
+                  if (buyLink) {
+                      buyLink.addEventListener('click', function(event) {
+                          event.preventDefault();
+                          alert('⚠️ Login is required to Buy this product');
+                         
+                      });
+                  }
+                });
+              </script>";
             }
             ?>
-
-
             <div class="detail-quantity">
               Quantity:
               <input type="number" name="qty" min="1" value="1" required>
@@ -158,9 +149,6 @@ if (isset($_SESSION['username'])) {
 <h3 class='recommended-title'>Recommended for you:</h3>
 <div class="chair-type">
   <?php
-  //   if (isset($_GET['image_id'])) {
-  // $image_id = $_GET['image_id'];
-  //   }
   if (isset($image_id)) {
     $sql2 = "(SELECT * FROM tbl_furniture 
     WHERE active='YES' AND featured='YES' 
@@ -176,7 +164,6 @@ if (isset($_SESSION['username'])) {
     ";
     $res2 = mysqli_query($con, $sql2);
 
-    // Check if $res2 is a valid result set
     if ($res2) {
       $count2 = mysqli_num_rows($res2);
       if ($count2 > 0) {
@@ -203,8 +190,7 @@ if (isset($_SESSION['username'])) {
             <div class="chair-description">
               <p class="chair-name"><?php echo $title; ?></p>
               <p class="chair-price">Rs.<?php echo $price; ?></p>
-
-              <a href="furniture-detail.php?cart_id=<?php echo $id; ?>" class="add-to-cart" onclick="a()"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
+              <a href="furniture-detail.php?cart_id=<?php echo $id; ?>&image_id=<?php echo $image_id; ?>" class="add-to-cart" onclick="a(event)"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
             </div>
           </div>
   <?php
@@ -213,7 +199,6 @@ if (isset($_SESSION['username'])) {
         echo "<div class='error'> Furniture Not available</div>";
       }
     } else {
-      // Handle query execution failure
       echo "Error executing query: " . mysqli_error($con);
     }
   } else {
@@ -221,6 +206,5 @@ if (isset($_SESSION['username'])) {
   }
   ?>
 </div>
-
 
 <?php include('partial-front/footer.php'); ?>

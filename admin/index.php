@@ -80,7 +80,7 @@
             $formatted_revenue = number_format($total_revenue, 0);
 
             ?>
-            <h1>Rs.<?php echo $formatted_revenue; ?></h1>
+            <h1>रू.<?php echo $formatted_revenue; ?></h1>
             <br>
             <span> Revenue Generation</span>
         </div>
@@ -107,6 +107,7 @@ $sql5 = "
     FROM tbl_category c
     LEFT JOIN tbl_furniture f ON c.id = f.category_id
     GROUP BY c.title
+    ORDER BY product_count DESC
     LIMIT 5
 ";
 $res5 = mysqli_query($con, $sql5);
