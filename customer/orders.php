@@ -16,12 +16,18 @@ if (!isset($_SESSION['username'])) {
 
   <div class="user-detail-info">
     <h1>My Orders</h1>
+    <?php
+if (isset($_SESSION['order'])) {
+  echo $_SESSION['order'];
+  unset($_SESSION['order']);
+}
+?>
 
     <?php
     $customer_id = $_SESSION['id'];
 
 
-    $order_query = "SELECT * FROM tbl_order WHERE customer_id = $customer_id";
+    $order_query = "SELECT * FROM tbl_order WHERE customer_id = $customer_id ORDER BY order_date DESC";
 
     $run = mysqli_query($con, $order_query);
 
@@ -34,6 +40,7 @@ if (!isset($_SESSION['username'])) {
         echo $_SESSION['message'];
       }
     ?>
+    
       <table class="order-table">
         <th>Product Image</th>
         <th>Product Name</th>

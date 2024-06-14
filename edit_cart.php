@@ -91,7 +91,7 @@ if (isset($_SESSION['id'])) {
 
                                         </td>
                                         <td>
-                                            <input class='cart-quantity-update' type="number" name="Qty" value="<?php echo $db_pro_qty; ?>">
+                                            <input class='cart-quantity-update' type="number" min="1" max="10" name="Qty" value="<?php echo $db_pro_qty; ?>">
                                         </td>
                                         <td>Rs.<?php echo $pr_row['price']; ?></td>
 

@@ -25,6 +25,10 @@
                     <td><input type="number" min="0" name="price" placeholder=""></td>
                 </tr>
                 <tr>
+                    <td>Stocks:</td>
+                    <td><input type="number" min="0" name="stock" placeholder=""></td>
+                </tr>
+                <tr>
                     <td>Select Image:</td>
                     <td><input type="file" name="image"></td>
                 </tr>
@@ -86,6 +90,7 @@
             $title = $_POST['title'];
             $description = $_POST['description'];
             $price = $_POST['price'];
+            $stock = $_POST['stock'];
             $category = $_POST['category'];
             //check whether radio button is checked or not
             if (isset($_POST['featured'])) {
@@ -136,6 +141,7 @@
              title='$title',
              description='$description', 
              price=$price, 
+             stock=$stock,
              image_name='$image_name', 
              category_id=$category,
              featured ='$featured', 

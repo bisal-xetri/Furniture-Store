@@ -1,12 +1,11 @@
-<?php include('config/constant.php'); ?>
-<?php include('partial-front/menu.php'); ?>
-
 <?php
-// Start or resume the session
+include('config/constant.php');
+include('partial-front/menu.php');
 
-// Check if the user is logged in
+// Capture the search query
+$search = isset($_POST['search']) ? mysqli_real_escape_string($con, $_POST['search']) : (isset($_GET['search']) ? mysqli_real_escape_string($con, $_GET['search']) : '');
+
 if (isset($_SESSION['username'])) {
-    // Check if 'id' session variable is set
     if (isset($_SESSION['id'])) {
         $custid = $_SESSION['id'];
 
@@ -20,20 +19,19 @@ if (isset($_SESSION['username'])) {
                 if (mysqli_num_rows($run_cart) == 0) {
                     $cart_query = "INSERT INTO `cart`(`user_id`, `product_id`, quantity) VALUES ($custid, $p_id, 1)";
                     if (mysqli_query($con, $cart_query)) {
-                        header('location:furniture-search.php?car_id='.$p_id);
-                        exit; // Exit after redirection
+                        header('Location: furniture-search.php?search=' . urlencode($search));
+                        exit;
                     }
                 } else {
-                    // Display alert if product is already in the cart
                     echo "<script>alert('⚠️ This product is already in your cart');</script>";
+                    header('Location: furniture-search.php?search=' . urlencode($search));
+                    exit;
                 }
             } else {
-                // Handle query execution failure
                 echo "Error executing query: " . mysqli_error($con);
             }
         }
     } else {
-        // Handle 'id' session variable not being set
         echo "Warning: 'id' session variable is not set";
     }
 } else {
@@ -44,11 +42,7 @@ if (isset($_SESSION['username'])) {
 <div class="wallpaper">
     <img class="wallpaper-img" src="Image/wallpaper2.jpg" alt="" />
     <div class="sologon">
-        <?php
-        $search = isset($_POST['search']) ? mysqli_real_escape_string($con, $_POST['search']) : '';
-        ?>
-
-        <h2>Furniture on Your Search <span style="color:#fb5607;">"<?php echo $search ?>"</span></h2>
+        <h2>Furniture on Your Search <span style="color:#fb5607;">"<?php echo htmlspecialchars($search); ?>"</span></h2>
     </div>
 </div>
 <div class="explore-div">
@@ -56,12 +50,9 @@ if (isset($_SESSION['username'])) {
 </div>
 <div class="chair-type">
     <?php
-    // Validate the search term
     if ($search != '') {
-        // SQL query to get furniture based on search
         $sql = "SELECT * FROM tbl_furniture WHERE title LIKE '%$search%' OR description LIKE '%$search%'";
 
-        // Execute query
         $res = mysqli_query($con, $sql);
         $count = mysqli_num_rows($res);
 
@@ -90,13 +81,13 @@ if (isset($_SESSION['username'])) {
                     <div class="chair-description">
                         <p class="chair-name"><?php echo $title; ?></p>
                         <p class="chair-price">Rs.<?php echo $price; ?></p>
-                        <a href="furniture-search.php?cart_id=<?php echo $id; ?>" class="add-to-cart js-add-to-cart" onclick="a(event)"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
+                        <a href="furniture-search.php?cart_id=<?php echo $id; ?>&search=<?php echo urlencode($search); ?>" class="add-to-cart js-add-to-cart"><i class="ri-shopping-cart-2-fill"></i>add to cart</a>
                     </div>
                 </div>
     <?php
             }
         } else {
-            echo "<div class='error' style='font-size:15px; '>Furniture not found</div>";
+            echo "<div class='error' style='font-size:15px;'>Furniture not found</div>";
         }
     } else {
         echo "<div class='error'>Please enter a search term.</div>";

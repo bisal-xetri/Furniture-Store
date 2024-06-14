@@ -37,6 +37,8 @@
                 <th>Title</th>
                 <th>Price</th>
                 <th>Image</th>
+                <th>Stocks</th>
+
                 <th>Featured</th>
                 <th>Active</th>
                 <th>Actions</th>
@@ -52,6 +54,7 @@
                     $title = $row['title'];
                     $price = $row['price'];
                     $image_name = $row['image_name'];
+                    $stock = $row['stock'];
                     $featured = $row['featured'];
                     $active = $row['active'];
             ?>
@@ -70,6 +73,7 @@
                             }
                             ?>
                         </td>
+                        <td><?php echo $stock; ?></td>
                         <td><?php echo $featured; ?></td>
                         <td><?php echo $active; ?></td>
                         <td>

@@ -1,23 +1,20 @@
 <?php ob_start(); ?>
 <?php include('config/constant.php') ?>
 <?php include('partial-front/menu.php') ?>
+
 <?php
-// Import PHPMailer classes into the global namespace
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 
-// Load Composer's autoloader
 require 'vendor/autoload.php';
 
 if (isset($_SESSION['username'])) {
-    // Check if 'id' session variable is set
     if (isset($_SESSION['id'])) {
         $custid = $_SESSION['id'];
 
         if (isset($_GET['furniture_id'])) {
-            //get the furniture id
             $furniture_id = $_GET['furniture_id'];
-            //get details of the selected furniture
             $sql = "SELECT * FROM tbl_furniture WHERE id = $furniture_id";
             $res = mysqli_query($con, $sql);
             $count = mysqli_num_rows($res);
@@ -28,17 +25,17 @@ if (isset($_SESSION['username'])) {
                 $price = $row['price'];
                 $image_name = $row['image_name'];
             } else {
-                echo "<script> function a(){alert('⚠️ Login is required to buy this product');}</script>";
+                echo "<script>alert('⚠️ Login is required to buy this product');</script>";
                 header("Location:" . SITEURL);
             }
         }
     }
 } else {
-    //redirect to home
-    echo "<script> function a(){alert('⚠️ Login is required to buy this product');}</script>";
+    echo "<script>alert('⚠️ Login is required to buy this product');</script>";
     header('Location:' . SITEURL);
 }
 ?>
+
 <link rel="stylesheet" href="CSS/buy.css">
 
 <div class="main">
@@ -49,7 +46,6 @@ if (isset($_SESSION['username'])) {
                 <div class="selected-furniture-img">
                     <?php
                     if ($image_name == "") {
-                        //img not available
                         echo "<div class='error'>Image not available</div>";
                     } else {
                     ?>
@@ -96,32 +92,27 @@ if (isset($_SESSION['username'])) {
             <textarea name="address" rows="5" placeholder="E.g. Street, City, Country" class="input-responsive" required><?php echo $address; ?></textarea>
         </fieldset>
 
-        <input type="submit" name="submit" value="Confirm Order" class="btn btn-primary" />
+        <input type="submit" name="submit" value="Cash On Delivery" class="btn btn-primary" />
+        <input type="submit" name="esewa" value="Pay with Esewa" class="btn epay" />
     </form>
 
     <?php
-    if (isset($_POST['submit'])) {
-        //get all the details of the order
+    if (isset($_POST['submit']) || isset($_POST['esewa'])) {
+        // Get all the details of the order
         $furniture = $_POST['furniture'];
         $price = $_POST['price'];
         $qty = $_POST['qty'];
-        $total = $price * $qty; //
+        $total = $price * $qty;
         date_default_timezone_set('UTC');
-
-        // Get current UTC time
         $utc_time = time();
-        
-        // Add 5 hours and 45 minutes to convert to Nepal Standard Time
         $nepal_time = $utc_time + (5 * 3600) + (45 * 60);
-        
-        // Format the Nepal Standard Time
         $order_date = date("Y-m-d H:i:s", $nepal_time);
-        $status = "Ordered"; //
+        $status = "Ordered";
         $customer_name = $_POST['full-name'];
         $customer_contact = $_POST['contact'];
         $customer_email = $_POST['email'];
         $customer_address = $_POST['address'];
-        $esewa = 0;  // eSewa value set to 0
+        $esewa = isset($_POST['esewa']) ? 1 : 0;
 
         $sql2 = "INSERT INTO tbl_order SET
         furniture='$furniture',
@@ -171,16 +162,46 @@ if (isset($_SESSION['username'])) {
                 echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
 
-            // Redirect to orders page
-            $_SESSION['order'] = "<div class='success text-center' style='text-align:center;color:green;'>Furniture order Success.</div>";
-            header("location:" . SITEURL . 'customer/orders.php');
+            if (isset($_POST['esewa'])) {
+                // Redirect to eSewa payment gateway
+                $tuid = time();
+                $t_amt = $total;
+    
+                $message = "total_amount=$t_amt,transaction_uuid=$tuid,product_code=EPAYTEST";
+                $s = hash_hmac('sha256', $message, '8gBm/:&EnhH.1/q', true);
+                $signature = base64_encode($s);
+                $success_url = SITEURL . "customer/orders.php";
+                $failure_url = SITEURL . "esewa_payment_failure.php";
+        
+                echo "
+                <form id='esewaForm' action='https://rc-epay.esewa.com.np/api/epay/main/v2/form' method='POST'>
+                    <input type='hidden' id='amount' name='amount' value='$total' required>
+                    <input type='hidden' id='tax_amount' name='tax_amount' value='0' required>
+                    <input type='hidden' id='total_amount' name='total_amount' value='$total' required>
+                    <input type='hidden' id='transaction_uuid' name='transaction_uuid' value='$tuid' required>
+                    <input type='hidden' id='product_code' name='product_code' value='EPAYTEST' required>
+                    <input type='hidden' id='product_service_charge' name='product_service_charge' value='0' required>
+                    <input type='hidden' id='product_delivery_charge' name='product_delivery_charge' value='0' required>
+                    <input type='hidden' id='success_url' name='success_url' value='$success_url' required>
+                    <input type='hidden' id='failure_url' name='failure_url' value='$failure_url' required>
+                    <input type='hidden' id='signed_field_names' name='signed_field_names' value='total_amount,transaction_uuid,product_code' required>
+                    <input type='hidden' id='signature' name='signature' value='$signature' required>
+                </form>
+                <script type='text/javascript'>
+                    document.getElementById('esewaForm').submit();
+                </script>
+                ";
+            } else {
+                // Redirect to orders page
+                $_SESSION['order'] = "<div class='success'>Order placed successfully.</div>";
+                header("Location:" . SITEURL . "orders.php");
+            }
         } else {
-            $_SESSION['order'] = "<div class='error' style='text-align:center;color:red;'>Failed to order Furniture. " . mysqli_error($con) . "</div>";
-            header("location:" . SITEURL);
+            $_SESSION['order'] = "<div class='error'>Failed to place order.</div>";
+            header("Location:" . SITEURL);
         }
     }
     ?>
 </div>
 
-<?php include('partial-front/footer.php') ?>
-<?php ob_end_flush(); ?>
+<?php include('partial-front/footer.php'); ?>

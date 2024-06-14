@@ -52,6 +52,7 @@ if (isset($_SESSION['username'])) {
         $id = $row['id'];
         $title = $row['title'];
         $price = $row['price'];
+        $stock = $row['stock'];
         $description = $row['description'];
         $image_name = $row['image_name'];
   ?>
@@ -94,7 +95,7 @@ if (isset($_SESSION['username'])) {
                       header("location:furniture-detail.php?image_id=$id");
                     }
                   } else {
-                    echo "<script>function a(event){event.preventDefault(); alert('⚠️ This product is already in your cart');}</script>";
+                    echo "<script> alert('⚠️ This product is already in your cart');</script>";
                   }
                 }
               }
@@ -125,7 +126,7 @@ if (isset($_SESSION['username'])) {
             ?>
             <div class="detail-quantity">
               Quantity:
-              <input type="number" name="qty" min="1" value="1" required>
+              <input type="number" name="qty" min="1"  max="<?php echo$stock;?>" value="1" required>
             </div>
             <div class="detail-buy">
               <a href="<?php echo SITEURL; ?>order.php?furniture_id=<?php echo $id; ?>" class="buy-option">Buy</a>

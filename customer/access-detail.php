@@ -29,9 +29,9 @@ if (isset($_SESSION['username'])) {
 
       <?php
       if (isset($_POST['update'])) {
-        $old_pass     = $_POST['old_pass'];
-        $new_pass     = $_POST['new_pass'];
-        $confirm_pass = $_POST['conf_pass'];
+        $old_pass     =sha1( $_POST['old_pass']);
+        $new_pass     =sha1( $_POST['new_pass']);
+        $confirm_pass =sha1( $_POST['conf_pass']);
 
         $query = "SELECT password FROM tbl_user Where id=$customer_id";
         $run   = mysqli_query($con, $query);

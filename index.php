@@ -52,12 +52,7 @@ if (isset($_SESSION['username'])) {
   </div>
   <div class="swiper-pagination"></div>
 </div>
-<?php
-if (isset($_SESSION['order'])) {
-  echo $_SESSION['order'];
-  unset($_SESSION['order']);
-}
-?>
+
 </div>
 <div class=explore-div>
   <h3><a class="explore" href="furniture-items.php">Explore Now</a></h3>
